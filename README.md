@@ -49,7 +49,7 @@ I have an old (version 3) raspberry pi from the era in which I worked on IoT. he
    pacman-key --populate archlinuxarm
    ```
 
-## Create ME
+## Create Me
 
 ```sh
 su
