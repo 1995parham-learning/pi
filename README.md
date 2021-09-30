@@ -66,20 +66,21 @@ visudo
 
 ## Network
 
-we use [netctl](https://wiki.archlinux.org/title/Netctl) for networking and it works with profiles:
+we use [systemd-networkd](https://wiki.archlinux.org/title/Systemd-networkd) for networking:
 
 ```
-Interface=eth0
-Connection=ethernet
-IP=static
-Address=('192.168.73.98/24')
-Gateway='192.168.73.254'
-DNS=('192.168.73.254' '8.8.8.8')
+[Match]
+Name=eth0
+
+[Network]
+Address=192.168.73.98/24
+Gateway=192.168.73.254
+DNS=192.168.73.254
+DNS=8.8.8.8
 ```
 
-save the above profile in `/etc/netctl/static_profile`. then enable it with the following command:
+save the above configuration in `/etc/systemd/network/20-wired.network`. then enable it with the following command:
 
 ```sh
-netctl enable static_profile
-reboot
+sudo systemctl restart systemd-networkd
 ```
