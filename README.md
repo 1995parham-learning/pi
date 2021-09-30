@@ -87,4 +87,8 @@ sudo systemctl restart systemd-networkd
 
 ## Ready for Ansible
 
-First of all copy the ssh public key into the host and then install python after that you are ready for ansible.
+First of all copy the ssh public key into the host and then install the following packages after that you are ready for ansible.
+
+```sh
+sudo pacman -Syu python inetutils
+```
