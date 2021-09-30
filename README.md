@@ -80,6 +80,6 @@ DNS=('192.168.73.254' '8.8.8.8')
 save the above profile in `/etc/netctl/static_profile`. then enable it with the following command:
 
 ```sh
-netctl start static_profile
 netctl enable static_profile
+reboot
 ```
