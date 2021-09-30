@@ -84,3 +84,7 @@ save the above configuration in `/etc/systemd/network/20-wired.network`. then en
 ```sh
 sudo systemctl restart systemd-networkd
 ```
+
+## Ready for Ansible
+
+First of all copy the ssh public key into the host and then install python after that you are ready for ansible.
