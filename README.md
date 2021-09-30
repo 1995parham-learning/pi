@@ -1,2 +1,5 @@
 # pi
-raspberry pi 3, the old memories have never died
+
+## Intrdoduction
+
+I have an old (version 3) raspberry pi from the era in which I worked on IoT. here I tried to configure it with Arch.
