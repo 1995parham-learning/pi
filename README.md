@@ -34,7 +34,7 @@ I have an old (version 3) raspberry pi from the era in which I worked on IoT. he
 
    ```sh
    wget http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-aarch64-latest.tar.gz
-   tar -xvfz ArchLinuxARM-rpi-aarch64-latest.tar.gz
+   tar -xvfz ArchLinuxARM-rpi-aarch64-latest.tar.gz -C /mnt
    ```
 
 7. insert the SD card into the Raspberry Pi, connect ethernet, and apply 5V power.
