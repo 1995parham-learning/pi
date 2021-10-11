@@ -2,7 +2,8 @@
 
 ## Intrdoduction
 
-I have an old (version 3) raspberry pi from the era in which I worked on IoT. here I tried to configure it with Arch.
+I have an old (version 3) raspberry pi from the era in which I worked on IoT. here I tried to configure it with Arch (aarch64).
+also I bought a new raspberry pi (verion 4) and I want to install Arch (armv7).
 
 ## Arch on ARM
 
