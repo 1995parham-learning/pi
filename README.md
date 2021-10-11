@@ -34,8 +34,15 @@ also I bought a new raspberry pi (verion 4) and I want to install Arch (armv7).
 6. download and extract the root filesystem (as root, not via sudo):
 
    ```sh
-   wget http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-aarch64-latest.tar.gz
+   # aarch64 (rpi3)
+   aria2c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-aarch64-latest.tar.gz
    tar xvfz ArchLinuxARM-rpi-aarch64-latest.tar.gz -C /mnt
+   ```
+
+   ```sh
+   # armv7 (rpi4)
+   aria2c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-4-latest.tar.gz
+   tar xvfz ArchLinuxARM-rpi-4-latest.tar.gz -C /mnt
    ```
 
 7. insert the SD card into the Raspberry Pi, connect ethernet, and apply 5V power.
@@ -60,6 +67,7 @@ pacman -Syu base-devel
 useradd -m parham
 groupadd sudo
 usermod -a -G sudo parham
+passwd parham
 
 # allow the sudo group to be sudoers
 visudo
@@ -91,5 +99,6 @@ sudo systemctl restart systemd-networkd
 First of all copy the ssh public key into the host and then install the following packages after that you are ready for ansible.
 
 ```sh
+ssh-copy-id
 sudo pacman -Syu python inetutils
 ```
