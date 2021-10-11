@@ -5,7 +5,7 @@
 I have an old (version 3) raspberry pi from the era in which I worked on IoT. here I tried to configure it with Arch (aarch64).
 also I bought a new raspberry pi (verion 4) and I want to install Arch (armv7).
 
-## Arch on ARM
+## Arch on ARM 💪
 
 1. start `fdisk` to partition the sd card
 2. at the `fdisk` prompt, delete old partitions and create a new one:
@@ -57,7 +57,7 @@ also I bought a new raspberry pi (verion 4) and I want to install Arch (armv7).
    pacman-key --populate archlinuxarm
    ```
 
-## Create Me
+## Create Me 🐼
 
 ```sh
 su
@@ -73,7 +73,7 @@ passwd parham
 visudo
 ```
 
-## Network
+## Network 🖧
 
 we use [systemd-networkd](https://wiki.archlinux.org/title/Systemd-networkd) for networking:
 
@@ -94,7 +94,7 @@ save the above configuration in `/etc/systemd/network/20-wired.network`. then en
 sudo systemctl restart systemd-networkd
 ```
 
-## Ready for Ansible
+## Ready for Ansible 🚀
 
 First of all copy the ssh public key into the host and then install the following packages after that you are ready for ansible.
 
