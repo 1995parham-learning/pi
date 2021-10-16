@@ -94,8 +94,6 @@ save the above configuration in `/etc/systemd/network/20-wired.network`. then en
 sudo systemctl restart systemd-networkd
 ```
 
-if you want to have the wifi, you can use `wifi-menu` to generate `netctl` profile and then configurate it.
-
 ## Ready for Ansible 🚀
 
 First of all copy the ssh public key into the host and then install the following packages after that you are ready for ansible.
