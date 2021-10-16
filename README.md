@@ -96,6 +96,27 @@ sudo systemctl restart systemd-networkd
 
 if you want to have the wifi, you can use `wifi-menu` to generate `netctl` profile and then configurate it.
 
+```sh
+sudo wifi-menu
+
+sudo systemctl stop systemd-networkd.service
+sudo systemctl stop systemd-resolved.service
+```
+
+```
+Description='Automatically generated profile by wifi-menu'
+Interface=wlan0
+Connection=wireless
+Security=wpa
+ESSID=Parham-Main
+IP=static
+Key=***
+Address=('192.168.73.96/24')
+Gateway='192.168.73.254'
+DNS=('192.168.73.254' '8.8.8.8')
+DNSSearch='parham.home'
+```
+
 ## Ready for Ansible 🚀
 
 First of all copy the ssh public key into the host and then install the following packages after that you are ready for ansible.
