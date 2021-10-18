@@ -1,6 +1,6 @@
 #!/bin/bash
 usage() {
-  echo "$0 <led e.g. 25> <value e.g. 1 0>"
+  echo "$0 <led e.g. 26> <value e.g. 1 0>"
 }
 
 if [[ $UID -ne 0 ]]; then
