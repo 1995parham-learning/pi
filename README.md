@@ -58,14 +58,16 @@ also I bought a new raspberry pi (verion 4) and I want to install Arch (armv7).
    su
    pacman-key --init
    pacman-key --populate archlinuxarm
+   
+   
+   pacman -Syu
+   pacman -Syu base-devel
    ```
 
 ## Create Me 🐼
 
 ```sh
 su
-pacman -Syu
-pacman -Syu base-devel
 
 useradd -m parham
 groupadd sudo
