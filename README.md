@@ -128,5 +128,8 @@ First of all copy the ssh public key into the host and then install the followin
 
 ```sh
 ssh-copy-id
+```
+
+```sh
 sudo pacman -Syu python inetutils
 ```
