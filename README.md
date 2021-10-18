@@ -46,10 +46,13 @@ also I bought a new raspberry pi (verion 4) and I want to install Arch (armv7).
    ```
 
 7. insert the SD card into the Raspberry Pi, connect ethernet, and apply 5V power.
-8. use the serial console or SSH to the IP address given to the board by your router.
+
+## Initiation
+
+1. use the serial console or SSH to the IP address given to the board by your router.
    1. login as the default user `alarm` with the password `alarm`.
    2. the default `root` password is `root`.
-9. initialize the pacman keyring and populate the Arch Linux ARM package signing keys:
+2. initialize the pacman keyring and populate the Arch Linux ARM package signing keys:
 
    ```sh
    su
