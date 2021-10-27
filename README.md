@@ -46,6 +46,17 @@ also I bought a new raspberry pi (verion 4) and I want to install Arch (armv7).
    ```
 
 7. insert the SD card into the Raspberry Pi, connect ethernet, and apply 5V power.
+8. With models that has buitin bluetooth support you need to apply following layout to make the serial console work.
+
+   config.txt
+   ```
+   dtoverlay=miniuart-bt
+   ```
+   
+   cmdline.txt
+   ```
+   onsole=tty1 console=ttyAMA0,115200
+   ```
 
 ## Initiation
 
