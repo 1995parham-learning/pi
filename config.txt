@@ -3,4 +3,4 @@
 dtoverlay=vc4-kms-v3d
 initramfs initramfs-linux.img followkernel
 
-dtparam=spi=on
+dtparam=spi=on,i2c=on
