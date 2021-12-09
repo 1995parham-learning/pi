@@ -146,3 +146,8 @@ ssh-copy-id
 ```sh
 sudo pacman -Syu python inetutils
 ```
+
+## LoRa Modules
+
+- [SX1268 433M LoRa HAT](https://www.waveshare.com/wiki/SX1268_433M_LoRa_HAT)
+- [SX1302 868M LoRaWAN Gateway](https://www.waveshare.com/wiki/SX1302_868M_LoRaWAN_Gateway)
