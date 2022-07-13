@@ -147,6 +147,16 @@ ssh-copy-id
 sudo pacman -Syu python inetutils
 ```
 
+## How to use AUR
+
+In order to use AUR on ARM Arch, we can clone it and make it manually.
+
+```sh
+git clone https://aur.archlinux.org/blocky
+cd blocky
+make -si
+```
+
 ## LoRa Modules
 
 - [SX1268 433M LoRa HAT](https://www.waveshare.com/wiki/SX1268_433M_LoRa_HAT)
