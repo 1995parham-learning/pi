@@ -70,12 +70,12 @@ The system configuration parameters, which would traditionally be edited and sto
 Raspberry Pi Expansion Board, Miscellaneous Components, All-in-One
 [read more](https://www.waveshare.com/wiki/Pioneer600)
 
-- CP2102 :: USB To UART Bridge
-- DS3231 :: Extremely Accurate I2C-IntegratedRTC/TCXO/Crystal
-- BMP180 :: Digital pressure sensor
-- SSD1306 :: OEL Display Module
-- PCF8591 :: 8-bit A/D and D/A converter
-- PCF8574 :: Remote 8-bit I/O expander for I2C-bus
+- CP2102: USB To UART Bridge
+- DS3231: Extremely Accurate I2C-IntegratedRTC/TCXO/Crystal
+- BMP180: Digital pressure sensor
+- SSD1306: OEL Display Module
+- PCF8591: 8-bit A/D and D/A converter
+- PCF8574: Remote 8-bit I/O expander for I2C-bus
 
 ## Arch on ARM 💪
 
