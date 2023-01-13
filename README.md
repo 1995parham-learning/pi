@@ -113,7 +113,7 @@ Save the above configuration in `/etc/systemd/network/20-wired.network`. Then en
 sudo systemctl restart systemd-networkd
 ```
 
-If you want to have the wifi, you can use `wifi-menu` to generate `netctl` profile and then configurate it.
+If you want to have the Wi-Fi, you can use `wifi-menu` to generate `netctl` profile and then configure it.
 
 ```bash
 sudo wifi-menu
