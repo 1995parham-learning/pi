@@ -163,7 +163,7 @@ passwd parham
 visudo
 ```
 
-## Network 🖧
+## Network 🛜
 
 we use [systemd-networkd](https://wiki.archlinux.org/title/Systemd-networkd) for networking:
 
