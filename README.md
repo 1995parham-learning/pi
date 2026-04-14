@@ -4,7 +4,7 @@
 
 I have an old (version 3) Raspberry Pi from the era in which I worked on IoT.
 Here I tried to configure it with ArchLinux (aarch64 architecture).
-Also I bought a new raspberry pi (version 4) and I want to install ArchLinux (armv7 architecture).
+Also I bought a new Raspberry Pi (version 4) and I want to install ArchLinux on it (aarch64 as well).
 
 ## Information
 
@@ -112,9 +112,9 @@ Raspberry Pi Expansion Board, Miscellaneous Components, All-in-One
    ```
 
    ```bash
-   # armv7 (rpi4)
-   aria2c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-4-latest.tar.gz
-   tar xvfz ArchLinuxARM-rpi-4-latest.tar.gz -C /mnt
+   # aarch64 (rpi4) — the rpi-aarch64 tarball supports both Pi 3 and Pi 4
+   aria2c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-aarch64-latest.tar.gz
+   tar xvfz ArchLinuxARM-rpi-aarch64-latest.tar.gz -C /mnt
    ```
 
 7. Insert the SD card into the Raspberry Pi, connect Ethernet cable, and apply 5V power.
@@ -137,6 +137,7 @@ Raspberry Pi Expansion Board, Miscellaneous Components, All-in-One
 1. Use the serial console or SSH to the IP address given to the board by your router.
    1. Login as the default user `alarm` with the password `alarm`.
    2. The default `root` password is `root`.
+   3. **Change both passwords immediately** with `passwd` (as `alarm`) and `passwd` (as `root`) before exposing the device to any network.
 2. Initialize the pacman keyring and populate the Arch Linux ARM package signing keys:
 
    ```bash
@@ -144,9 +145,8 @@ Raspberry Pi Expansion Board, Miscellaneous Components, All-in-One
    pacman-key --init
    pacman-key --populate archlinuxarm
 
-
    pacman -Syu
-   pacman -Syu base-devel
+   pacman -S --needed base-devel
    ```
 
 ## Create Me 🐼
@@ -155,12 +155,12 @@ Raspberry Pi Expansion Board, Miscellaneous Components, All-in-One
 su
 
 useradd -m parham
-groupadd sudo
-usermod -a -G sudo parham
+# `wheel` is the conventional admin group on Arch; it already exists.
+usermod -a -G wheel parham
 passwd parham
 
-# allow the sudo group's users to be sudoers
-visudo
+# uncomment the `%wheel ALL=(ALL:ALL) ALL` line
+EDITOR=vim visudo
 ```
 
 ## Network 🛜
@@ -184,28 +184,26 @@ Save the above configuration in `/etc/systemd/network/20-wired.network`. Then en
 sudo systemctl restart systemd-networkd
 ```
 
-If you want to have the Wi-Fi, you can use `wifi-menu` to generate `netctl` profile and then configure it.
+For Wi-Fi, `netctl` / `wifi-menu` has been removed from Arch Linux ARM — use
+[`iwd`](https://wiki.archlinux.org/title/Iwd) instead, either standalone or as
+a backend for `systemd-networkd` / NetworkManager.
 
 ```bash
-sudo wifi-menu
+sudo pacman -S iwd
+sudo systemctl enable --now iwd.service
 
-sudo systemctl stop systemd-networkd.service
-sudo systemctl stop systemd-resolved.service
+# interactive client
+iwctl
+# at the prompt:
+#   device list
+#   station wlan0 scan
+#   station wlan0 get-networks
+#   station wlan0 connect "Parham-Main"
 ```
 
-```systemd
-Description='Automatically generated profile by wifi-menu'
-Interface=wlan0
-Connection=wireless
-Security=wpa
-ESSID=Parham-Main
-IP=static
-Key=***
-Address=('192.168.73.96/24')
-Gateway='192.168.73.254'
-DNS=('192.168.73.254' '8.8.8.8')
-DNSSearch='parham.home'
-```
+To combine `iwd` with the existing `systemd-networkd` setup, add a matching
+`.network` file for `wlan0` under `/etc/systemd/network/` and let `iwd` handle
+authentication.
 
 ## Ready for Ansible 🚀
 
@@ -224,10 +222,33 @@ sudo pacman -Syu python inetutils
 In order to use AUR on ARM Arch, we can clone it and make it manually. For example:
 
 ```bash
-git clone https://aur.archlinux.org/blocky
+git clone https://aur.archlinux.org/blocky.git
 cd blocky
-make -si
+makepkg -si
 ```
+
+## GPIO (libgpiod)
+
+The legacy `/sys/class/gpio` sysfs interface has been removed from modern
+Linux kernels. The current best practice is [libgpiod](https://libgpiod.readthedocs.io/)
+with the `gpioset` / `gpioget` CLI tools.
+
+```bash
+sudo pacman -S libgpiod
+
+# drive GPIO26 high, works across Pi 3/4/5 via the named line
+gpioset GPIO26=1
+
+# hold the line high for 2 seconds, then release
+gpioset --hold-period 2s -t0 GPIO26=1
+```
+
+The `led.sh` helper in this repo wraps `gpioset` with positional arguments.
+
+## modules-load.d
+
+`modules-load.d/raspberrypi.conf` lists kernel modules to autoload at boot
+(I²C, SPI, etc.). Copy it to `/etc/modules-load.d/` on the target device.
 
 ## LoRa Modules
 
