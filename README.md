@@ -77,6 +77,73 @@ Raspberry Pi Expansion Board, Miscellaneous Components, All-in-One
 - PCF8591: 8-bit A/D and D/A converter
 - PCF8574: Remote 8-bit I/O expander for I2C-bus
 
+## A note on stability 📝
+
+Arch Linux ARM on a Pi 4 is a great **learning / tinkering** platform, but it
+is not what I would pick for a device that needs to "just work" unattended:
+
+- Rolling release + a smaller ARM testing base means breakage after a large
+  `pacman -Syu` is more common than on x86_64 Arch. Keyring drift
+  (`archlinux-keyring` / `archlinuxarm-keyring`) can block `pacman` until
+  fixed by hand — painful on a headless board.
+- There is no Pi-specific tuning out of the box (log2ram, zram, SD-friendly
+  I/O defaults). You assemble it yourself.
+- HAT overlays, `libcamera`, and hardware video decode are documented almost
+  exclusively against Raspberry Pi OS; Arch users are on their own.
+- Stick to the `linux-rpi` kernel (not `linux-aarch64`) — it's the one
+  actually maintained for Pi hardware.
+
+If long-term stability is the priority, prefer one of:
+
+1. **Raspberry Pi OS (64-bit, Trixie)** — official, firmware-matched, boring in
+   the good way.
+2. **Ubuntu Server 24.04 LTS for Pi** — 5-year Canonical support.
+3. **Debian ARM64** — upstream Debian without the Pi skin.
+4. **openSUSE MicroOS / Fedora IoT** — transactional updates for appliance-style
+   deployments.
+
+The rest of this document focuses on Arch because that's the hobby track I'm on,
+but a Raspberry Pi OS quickstart is included below.
+
+## Raspberry Pi OS quickstart 🥧
+
+The officially supported path. Works on Pi 3, 4, 5, and Zero 2 W.
+
+1. Download **Raspberry Pi Imager** from <https://www.raspberrypi.com/software/>
+   (the Imager is the recommended tool; do not hand-flash legacy `.img` files
+   unless you know why).
+2. Launch the Imager, pick:
+   - **Device**: Raspberry Pi 4
+   - **OS**: "Raspberry Pi OS (64-bit)" — based on Debian Trixie as of 2026
+   - **Storage**: your SD card
+3. Click the gear / "Edit settings" (or press `Ctrl+Shift+X`) to pre-configure
+   the image before flashing:
+   - Set hostname (e.g. `pi.parham.home`)
+   - Create the initial user + password (the default `pi`/`raspberry` account
+     was removed in Bookworm; you must supply your own)
+   - Enable SSH and paste your public key
+   - Configure Wi-Fi SSID / password and locale
+   - This populates a `firstrun.sh` that executes on first boot.
+4. Flash, insert the SD card, connect Ethernet (if available), and power on.
+5. From your workstation:
+
+   ```bash
+   ssh parham@pi.parham.home
+   sudo apt update && sudo apt full-upgrade
+   sudo rpi-update        # only if you actually need bleeding-edge firmware
+   ```
+
+6. Useful first-run commands:
+
+   ```bash
+   sudo raspi-config      # interactive: enable I2C / SPI / camera / serial
+   sudo apt install git vim tmux
+   ```
+
+Note: Raspberry Pi does **not** support in-place upgrades between major releases
+(e.g. Bookworm → Trixie). The supported path is to flash a fresh image and
+reinstall your applications.
+
 ## Arch on ARM 💪
 
 1. Start `fdisk` to partition the SD card
